@@ -12,4 +12,5 @@ fn main() {
     let oakland = location::core::Coordinates::new(37.8044, -122.2711, 13.0, 2000.0, 100.0);
     let oakland_json = serde_json::to_string(&oakland).unwrap();
     println!("{}", oakland_json);
+    println!("{}", oakland);
 }

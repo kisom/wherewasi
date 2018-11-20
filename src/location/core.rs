@@ -14,6 +14,14 @@ fn north_or_south(latitude: f64) -> String {
     }
 }
 
+fn east_or_west(longitude: f64) -> String {
+    if longitude >= 0.0 {
+        "E".to_string()
+    } else {
+        "W".to_string()
+    }
+}
+
 /// Coordinates is presumed to be a WGS84 position paired with a UTC timestamp
 /// and an altitude. Both the ground position and altitude have a corresponding
 /// accuracy measurement.
@@ -49,6 +57,10 @@ impl Coordinates {
 
 impl fmt::Display for Coordinates {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}º", self.latitude)
+        write!(f, "{}°{}, {}°{} within {}m @ {}m within {}m", 
+            self.latitude.abs(), north_or_south(self.latitude),
+            self.longitude.abs(), east_or_west(self.longitude),
+            self.gacc,
+            self.altitude, self.aacc)
     }
 }
